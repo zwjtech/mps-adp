@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static java.util.Objects.nonNull;
 
 /**
  * Created by wangxiaosan on 17/5/10.
@@ -47,11 +47,12 @@ public class Resource {
 
     @GET
     @Path("/{module:\\w*[/?\\w*]*}/{action}")
-    public Response doGet(@PathParam("version") String version,@PathParam("module") String module,@PathParam("action") String action, String param) {
+    public Response doGet(@PathParam("version") String version,@PathParam("module") String module,@PathParam("action") String action) {
         SimpleActionRequest actionRequest = new SimpleActionRequest();
-        if(isNotBlank(param)) {
+        Map<String, String[]> parameterMap = servletRequest.getParameterMap();
+        if(nonNull(parameterMap) && !parameterMap.isEmpty()) {
             Map<String, Object> hashMap = Maps.newHashMap();
-            hashMap.put("param", param);
+            hashMap.putAll(parameterMap);
             actionRequest.setContent(hashMap);
         }
         ActionResponse execute = apiService.execute(module.replace("/","-")+"@"+action+"|"+version, actionRequest);

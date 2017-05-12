@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 @Service
 public class DefaultECSService extends AbstractBaseService implements ECSService {
 
+    private static final int MAX_PAGE_SIZE = 50;
 
     @Override
     public ListVMImageResponse queryImages() {
@@ -27,10 +28,20 @@ public class DefaultECSService extends AbstractBaseService implements ECSService
         DescribeImagesRequest request = new DescribeImagesRequest();
         request.setOwnerId(1092687136033631L);
         request.setActionName("DescribeImages");
+        request.setPageSize(MAX_PAGE_SIZE);
         DescribeImagesResponse process = AliyunClient.getInstance().process(request);
-        if (nonNull(process) && !process.getImages().isEmpty()) {
+        Integer totalCount = process.getTotalCount();
+
+        List<DescribeImagesResponse.Image> images = Lists.newArrayList();
+        int totalPage = totalCount % MAX_PAGE_SIZE == 0 ? totalCount / MAX_PAGE_SIZE : totalCount / MAX_PAGE_SIZE + 1;
+        for (int i = 1; i <= totalPage; i++) {
+            request.setPageNumber(i);
+            DescribeImagesResponse pageImages = AliyunClient.getInstance().process(request);
+            images.addAll(pageImages.getImages());
+        }
+        if (! images.isEmpty()) {
             List<VMImageInfo> infos = Lists.newArrayList();
-            process.getImages().parallelStream().forEach(i->{
+            images.parallelStream().forEach(i -> {
                 VMImageInfo info = new VMImageInfo();
                 info.setVm_image_ID(i.getImageId());
                 info.setVm_image_name(i.getOSName());
@@ -39,5 +50,7 @@ public class DefaultECSService extends AbstractBaseService implements ECSService
             response.setIaas_vm_image_IDs(infos);
         }
         return response;
+
+
     }
 }
