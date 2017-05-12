@@ -55,7 +55,7 @@ public class AliyunClient {
             return client.getAcsResponse(request, true, 3);
         } catch (ClientException e) {
             e.printStackTrace();
-//            LOGGER.error("Invoke aliyun sdk api error. " + ErrorMsgHelper.getChineseErrorMsg(request.getProduct(), e.getErrMsg()), e);
+            LOGGER.error("Invoke aliyun sdk api error. " + e.getErrMsg(), e);
             throw new RuntimeException(e.getMessage(),e);
         } finally {
             LOGGER.debug("Invoke aliyun sdk api url is : [" + request.getUrl() + "]");
