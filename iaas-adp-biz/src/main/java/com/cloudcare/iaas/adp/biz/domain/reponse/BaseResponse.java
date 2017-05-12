@@ -15,6 +15,12 @@ public class BaseResponse implements Serializable {
     @JsonProperty("error_description")
     private String errorDescription;
 
+    public BaseResponse(){
+        this.requestExecuteStatus=1;
+        this.errorDescription="";
+    }
+
+
     public int getRequestExecuteStatus() {
         return requestExecuteStatus;
     }
