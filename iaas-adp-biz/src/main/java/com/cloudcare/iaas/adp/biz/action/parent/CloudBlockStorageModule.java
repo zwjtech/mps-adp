@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 /**
  * Created by wangxiaosan on 17/5/10.
  */
-@ParentModule(IaasModule.class)
+@ParentModule(IaaSModule.class)
 @Controller("cloud_block_storage")
 public class CloudBlockStorageModule {
 }

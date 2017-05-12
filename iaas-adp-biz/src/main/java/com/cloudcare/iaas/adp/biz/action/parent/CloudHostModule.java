@@ -7,6 +7,6 @@ import org.springframework.stereotype.Controller;
  * Created by wangxiaosan on 17/5/10.
  */
 @Controller("cloud_host")
-@ParentModule(IaasModule.class)
+@ParentModule(IaaSModule.class)
 public class CloudHostModule {
 }
