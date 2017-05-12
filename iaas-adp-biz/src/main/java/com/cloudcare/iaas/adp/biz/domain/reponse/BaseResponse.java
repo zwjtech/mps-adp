@@ -1,35 +1,41 @@
 package com.cloudcare.iaas.adp.biz.domain.reponse;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 /**
  * Created by wangxiaosan on 17/5/10.
  */
 public class BaseResponse implements Serializable {
-    private int request_execute_status;
-    private String error_description;
 
-    public int getRequest_execute_status() {
-        return request_execute_status;
+    @JsonProperty("request_execute_status")
+    private int requestExecuteStatus;
+
+    @JsonProperty("error_description")
+    private String errorDescription;
+
+    public int getRequestExecuteStatus() {
+        return requestExecuteStatus;
     }
 
-    public void setRequest_execute_status(int request_execute_status) {
-        this.request_execute_status = request_execute_status;
+    public void setRequestExecuteStatus(int requestExecuteStatus) {
+        this.requestExecuteStatus = requestExecuteStatus;
     }
 
-    public String getError_description() {
-        return error_description;
+    public String getErrorDescription() {
+        return errorDescription;
     }
 
-    public void setError_description(String error_description) {
-        this.error_description = error_description;
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
     }
 
     @Override
     public String toString() {
         return "BaseResponse{" +
-                "request_execute_status=" + request_execute_status +
-                ", error_description='" + error_description + '\'' +
+                "requestExecuteStatus=" + requestExecuteStatus +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }

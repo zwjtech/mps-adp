@@ -1,33 +1,39 @@
 package com.cloudcare.iaas.adp.biz.domain.reponse;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by wangxiaosan on 17/5/10.
  */
 public class VMImageInfo {
-    private String vm_image_ID;
-    private String vm_image_name;
 
-    public String getVm_image_ID() {
-        return vm_image_ID;
+    @JsonProperty("vm_image_ID")
+    private String vmImageID;
+
+    @JsonProperty("vm_image_name")
+    private String vmImageName;
+
+    public String getVmImageID() {
+        return vmImageID;
     }
 
-    public void setVm_image_ID(String vm_image_ID) {
-        this.vm_image_ID = vm_image_ID;
+    public void setVmImageID(String vmImageID) {
+        this.vmImageID = vmImageID;
     }
 
-    public String getVm_image_name() {
-        return vm_image_name;
+    public String getVmImageName() {
+        return vmImageName;
     }
 
-    public void setVm_image_name(String vm_image_name) {
-        this.vm_image_name = vm_image_name;
+    public void setVmImageName(String vmImageName) {
+        this.vmImageName = vmImageName;
     }
 
     @Override
     public String toString() {
         return "VMImageInfo{" +
-                "vm_image_ID='" + vm_image_ID + '\'' +
-                ", vm_image_name='" + vm_image_name + '\'' +
+                "vmImageID='" + vmImageID + '\'' +
+                ", vmImageName='" + vmImageName + '\'' +
                 '}';
     }
 }

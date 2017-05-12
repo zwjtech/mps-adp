@@ -43,11 +43,11 @@ public class DefaultECSService extends AbstractBaseService implements ECSService
             List<VMImageInfo> infos = Lists.newArrayList();
             images.parallelStream().forEach(i -> {
                 VMImageInfo info = new VMImageInfo();
-                info.setVm_image_ID(i.getImageId());
-                info.setVm_image_name(i.getOSName());
+                info.setVmImageID(i.getImageId());
+                info.setVmImageName(i.getOSName());
                 infos.add(info);
             });
-            response.setIaas_vm_image_IDs(infos);
+            response.setIaasVmImageIDs(infos);
         }
         return response;
     }
