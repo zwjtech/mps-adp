@@ -3,7 +3,9 @@ package com.cloudcare.iaas.adp.biz.action;
 import com.cloudcare.common.lang.serialize.JSON;
 import com.cloudcare.iaas.adp.biz.action.parent.CloudBlockStorageModule;
 import com.cloudcare.iaas.adp.biz.domain.form.CreateVolumeForm;
+import com.cloudcare.iaas.adp.biz.domain.form.QueryVolumeForm;
 import com.cloudcare.iaas.adp.biz.domain.reponse.CreateVolumeResponse;
+import com.cloudcare.iaas.adp.biz.domain.reponse.QueryVolumeResponse;
 import com.cloudcare.iaas.adp.biz.service.EBSService;
 import com.cloudcare.web.api.annotation.Action;
 import com.cloudcare.web.api.annotation.ParentModule;
@@ -25,6 +27,12 @@ public class EBSVolumeActionFactory extends AbstractActionFactory {
     public CreateVolumeResponse createVolume(String param){
         CreateVolumeForm volumeForm = JSON.toBean(param,CreateVolumeForm.class);
         return ebsService.createVolume(volumeForm);
+    }
+
+    @Action("queryVolume|v1")
+    public QueryVolumeResponse queryVolume(String param) {
+        QueryVolumeForm volumeForm = JSON.toBean(param, QueryVolumeForm.class);
+        return ebsService.queryVolume(volumeForm);
     }
 
 }
