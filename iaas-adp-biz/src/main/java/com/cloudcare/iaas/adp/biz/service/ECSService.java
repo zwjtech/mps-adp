@@ -7,4 +7,5 @@ import com.cloudcare.iaas.adp.biz.domain.reponse.ListVMImageResponse;
  */
 public interface ECSService {
     ListVMImageResponse queryImages();
+
 }

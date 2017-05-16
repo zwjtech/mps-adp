@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.Objects.nonNull;
-
 /**
  * Created by wangxiaosan on 17/5/10.
  */
@@ -53,4 +51,6 @@ public class DefaultECSService extends AbstractBaseService implements ECSService
 
 
     }
+
+
 }

@@ -2,12 +2,16 @@ package com.cloudcare.iaas.adp.biz.service.impl;
 
 import com.aliyuncs.ecs.model.v20140526.CreateDiskRequest;
 import com.aliyuncs.ecs.model.v20140526.CreateDiskResponse;
+import com.aliyuncs.ecs.model.v20140526.CreateSnapshotRequest;
+import com.aliyuncs.ecs.model.v20140526.CreateSnapshotResponse;
 import com.aliyuncs.ecs.model.v20140526.DescribeDisksRequest;
 import com.aliyuncs.ecs.model.v20140526.DescribeDisksResponse;
 import com.cloudcare.common.lang.service.AbstractBaseService;
 import com.cloudcare.iaas.adp.biz.domain.form.CreateVolumeForm;
+import com.cloudcare.iaas.adp.biz.domain.form.CreateVolumeSnapshotForm;
 import com.cloudcare.iaas.adp.biz.domain.form.QueryVolumeForm;
 import com.cloudcare.iaas.adp.biz.domain.reponse.CreateVolumeResponse;
+import com.cloudcare.iaas.adp.biz.domain.reponse.CreateVolumeSnapshotResponse;
 import com.cloudcare.iaas.adp.biz.domain.reponse.QueryVolumeResponse;
 import com.cloudcare.iaas.adp.biz.service.EBSService;
 import com.cloudcare.iaas.adp.biz.util.AliyunClient;
@@ -25,6 +29,7 @@ import java.util.List;
 public class DefaultEBSService extends AbstractBaseService implements EBSService {
 
     private static final String CREATE_DISK_ACTION = "CreateDisk";
+    private static final String CREATE_SNAPSHOT_ACTION = "CreateSnapshot";
     private static final int MAX_PAGE_SIZE = 50;
 
     @Override
@@ -78,5 +83,20 @@ public class DefaultEBSService extends AbstractBaseService implements EBSService
         }
 
         return response;
+    }
+
+    @Override
+    public CreateVolumeSnapshotResponse createVolumeSnapshot(CreateVolumeSnapshotForm volumeSnapshotForm) {
+        CreateSnapshotRequest createSnapshotRequest=new CreateSnapshotRequest();
+        createSnapshotRequest.setActionName(CREATE_SNAPSHOT_ACTION);
+        createSnapshotRequest.setDiskId(volumeSnapshotForm.getIaasVolumeID());
+
+        createSnapshotRequest.setDescription(volumeSnapshotForm.getIaasVolumeSnapshotDescripiton());
+        createSnapshotRequest.setOwnerId(1092687136033631L);
+        CreateSnapshotResponse process = AliyunClient.getInstance().process(createSnapshotRequest);
+        CreateVolumeSnapshotResponse createVolumeSnapshotResponse=new CreateVolumeSnapshotResponse();
+        createVolumeSnapshotResponse.setIaasvolumeID(createSnapshotRequest.getDiskId());
+        createVolumeSnapshotResponse.setIaasvolumesnapshotID(process.getSnapshotId());
+        return createVolumeSnapshotResponse;
     }
 }
